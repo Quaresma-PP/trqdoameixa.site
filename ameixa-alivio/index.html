@@ -682,19 +682,18 @@ currency: 'BRL'
 
     <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // 1. Encontra o elemento
     const elemento = document.getElementById("elementoOculto");
 
     if (elemento) {
-      // 2. Define um tempo de TESTE de 5 segundos (5000ms)
-      const delayEmMs = 5000; 
-
-      console.log("TESTE: Mostrando botão em 5 segundos...");
+      // 1. Pega o "2" do atributo
+      const delayEmSegundos = parseFloat(elemento.getAttribute("data-show-delay"));
+      
+      // 2. Converte SEGUNDOS para milissegundos (2 * 1000 = 2000ms)
+      const delayEmMs = delayEmSegundos * 1000; 
 
       // 3. Agenda a exibição
       setTimeout(function() {
-        elemento.style.display = "block";
-        console.log("TESTE: Botão exibido!");
+        elemento.style.display = "block"; 
       }, delayEmMs);
     }
   });
@@ -702,6 +701,7 @@ currency: 'BRL'
 
 </body>
 </html>
+
 
 
 
