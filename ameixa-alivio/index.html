@@ -625,66 +625,129 @@ currency: 'BRL'
 
 <script>
 // 1. Variáveis globais
-        var player;
-        const overlay = document.getElementById('video-overlay');
-        const blocker = document.getElementById('click-blocker');
+var player;
+const overlay = document.getElementById('video-overlay');
+const blocker = document.getElementById('click-blocker');
 
-        // 2. Esta função é chamada automaticamente pela API do YouTube
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '100%',
-                width: '100%',
-                videoId: 'iMgPmw_s6n0', // ID do seu vídeo
-                playerVars: {
-                    'autoplay': 1,        // Autoplay
-                    'mute': 1,            // Começa mudo
-                    'controls': 0,        // Esconde os controles do YouTube
-                    'showinfo': 0,        // Esconde informações do vídeo
-                    'rel': 0,             // Não mostra vídeos relacionados no final
-                    'modestbranding': 1,  // Minimiza o logo do YouTube
-                    'playsinline': 1,     // Necessário para autoplay em iOS
-                    'loop': 1,            // Faz o vídeo repetir
-                    'playlist': 'iMgPmw_s6n0' // Necessário para 'loop' funcionar
-                },
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
+// ===== LÓGICA DO SCRIPT.JS MOVIDA PARA CÁ =====
+var elementoOculto = document.getElementById('elementoOculto');
+var SECONDS_TO_DISPLAY = 0;
+var elementoJaMostrado = false;
+var storageKey = '';
+var videoTimer = null; // Variável para guardar nosso timer de verificação
+
+// Pega o tempo do atributo data-show-delay
+if (elementoOculto) {
+    SECONDS_TO_DISPLAY = parseInt(elementoOculto.getAttribute('data-show-delay')) || 0;
+    storageKey = 'elementoMostrado_' + SECONDS_TO_DISPLAY;
+}
+
+/* Função para mostrar o elemento (vinda do script.js) */
+function showHiddenElement() {
+    // Só executa se o elemento existir e ainda não tiver sido mostrado
+    if (elementoJaMostrado || !elementoOculto) return;
+    
+    elementoOculto.style.display = "block";
+    elementoOculto.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+    });
+    
+    elementoJaMostrado = true;
+    
+    // Salva no localStorage para que o botão já apareça se o usuário recarregar
+    try {
+        localStorage.setItem(storageKey, 'true');
+    } catch (e) {
+        console.warn("Não foi possível salvar no localStorage.");
+    }
+}
+
+// Verificar o localStorage ANTES de tudo. 
+// Se o usuário já viu, mostra o botão imediatamente.
+try {
+    if (localStorage.getItem(storageKey) === 'true') {
+        showHiddenElement();
+    }
+} catch (e) {
+    console.warn("Não foi possível ler do localStorage.");
+}
+// ====================================================
+
+// 2. Esta função é chamada automaticamente pela API do YouTube
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: 'iMgPmw_s6n0', // ID do seu vídeo
+        playerVars: {
+            'autoplay': 1,
+            'mute': 1,
+            'controls': 0,
+            'showinfo': 0,
+            'rel': 0,
+            'modestbranding': 1,
+            'playsinline': 1,
+            'loop': 1,
+            'playlist': 'iMgPmw_s6n0' // Necessário para 'loop' funcionar
+        },
+        events: {
+            'onReady': onPlayerReady
         }
+    });
+}
 
-        // 3. A API chama esta função quando o vídeo está pronto (ou atualizado)
-        function onPlayerReady(event) {
-            // ===== AJUSTE PARA GARANTIR O ESTADO INICIAL (F5) =====
-            // Garante que a capa SEMPRE esteja visível
-            overlay.classList.remove('hidden');
-            // Garante que o bloqueador de clique esteja ESCONDIDO
-            blocker.classList.remove('visible'); 
-            // ======================================================
+// 3. A API chama esta função quando o vídeo está pronto
+function onPlayerReady(event) {
+    // Garante o estado inicial correto ao carregar a página
+    overlay.classList.remove('hidden');
+    blocker.classList.remove('visible'); 
+    
+    player.mute();
+    player.seekTo(0);
+    event.target.playVideo();
+}
 
-            // Reinicia o vídeo
-            player.mute();
-            player.seekTo(0);
-            event.target.playVideo();
-        }
+// 4. Pega a capa e adiciona o clique
+overlay.addEventListener('click', function() {
+    // Tira o mudo e começa do início
+    player.unMute();
+    player.seekTo(0);
+    player.playVideo(); 
+    
+    // Esconde a capa
+    this.classList.add('hidden');
+    // MOSTRA o bloqueador de cliques
+    blocker.classList.add('visible');
 
-        // 4. Pega a capa e adiciona o clique
-        overlay.addEventListener('click', function() {
-            // Tira o mudo e começa do início
-            player.unMute();
-            player.seekTo(0);
-            player.playVideo(); 
-            
-            // Esconde a capa
-            this.classList.add('hidden');
-            // MOSTRA o bloqueador de cliques
-            blocker.classList.add('visible');
-        });
+    // ===== NOVO: INICIAR O MONITORAMENTO DE TEMPO =====
+    // Limpa qualquer timer antigo, se houver
+    if (videoTimer) {
+        clearInterval(videoTimer);
+    }
+
+    // Se o elemento ainda não foi mostrado, começa a verificar
+    if (!elementoJaMostrado) {
+        // Cria um novo timer que verifica o tempo do vídeo a cada segundo
+        videoTimer = setInterval(function() {
+            // player.getCurrentTime() retorna o tempo atual em segundos
+            if (player && typeof player.getCurrentTime === 'function' && player.getCurrentTime() >= SECONDS_TO_DISPLAY) {
+                
+                showHiddenElement(); // Mostra o elemento
+                
+                clearInterval(videoTimer); // Para de verificar após mostrar
+            }
+        }, 1000); // Verifica a cada 1000ms (1 segundo)
+    }
+    // ===============================================
+});
 </script>
 
 
 
 </body>
 </html>
+
 
 
 
