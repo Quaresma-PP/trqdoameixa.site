@@ -159,7 +159,7 @@
 
         @media (max-width: 600px) {
             .video-container {
-                aspect-ratio: 9 / 16;
+                aspect-ratio: 16 / 9;
                 max-width: 100%;
                 margin: 0;
             }
@@ -260,7 +260,28 @@ currency: 'BRL'
 
 <br>
 
-  <!-- DTC -->
+ 
+    
+    <!-- Mensagem abaixo do vídeo -->
+<div id="aviso-som" class="text-center mt-3 flex items-center justify-center gap-2 text-gray-700 text-sm animate-pulse">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+      d="M11 5L6 9H3v6h3l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
+  </svg>
+  <span><strong>Verifique se o som está ligado</strong></span>
+</div>
+
+<!-- (Opcional) CSS adicional -->
+<style>
+  #aviso-som {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.3px;
+  }
+</style>
+
+  </main>
+
+   <!-- DTC -->
   <div id="elementoOculto" data-show-delay="2983" style="display: none">
     
   <div class="w-full p-10 bg-white">
@@ -284,25 +305,6 @@ currency: 'BRL'
   </a>
 
 </div>
-    
-    <!-- Mensagem abaixo do vídeo -->
-<div id="aviso-som" class="text-center mt-3 flex items-center justify-center gap-2 text-gray-700 text-sm animate-pulse">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M11 5L6 9H3v6h3l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14" />
-  </svg>
-  <span><strong>Verifique se o som está ligado</strong></span>
-</div>
-
-<!-- (Opcional) CSS adicional -->
-<style>
-  #aviso-som {
-    font-family: 'Inter', sans-serif;
-    letter-spacing: 0.3px;
-  }
-</style>
-
-  </main>
   
 
   <!-- Espaço -->
@@ -747,6 +749,7 @@ overlay.addEventListener('click', function() {
 
 </body>
 </html>
+
 
 
 
