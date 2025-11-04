@@ -4,6 +4,9 @@
   <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AMEIXAPP</title>
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="dns-prefetch" href="https://www.youtube.com">
+<link rel="preconnect" href="https://i.ytimg.com"> <link rel="dns-prefetch" href="https://i.ytimg.com">
 
 
 <link rel="icon" type="image/svg+xml" href="images/ameixa.png">       
@@ -16,8 +19,6 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
- <script src="./js/script.js"></script>
-
 
   <style>
     :root{
@@ -26,52 +27,51 @@
     }
     body{ font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); }
 
- /* CSS Básico */
-        body {
-            background-color: #f0f0f0;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+  /* Estilo básico para remover margens */
+        body, html {
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            padding: 0;
+            background-color: #f0f0f0; /* Apenas para visualização */
         }
 
         /* Torna o contêiner do vídeo responsivo */
         .video-container {
             position: relative;
             width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
+            max-width: 900px; /* Defina a largura máxima que desejar */
+            margin: 20px auto; /* Margem para centralizar e ver melhor */
+            aspect-ratio: 16 / 9; /* Proporção de vídeo (16:9) */
+            overflow: hidden; /* ESSENCIAL: Esconde as partes do iframe que vazam */
             background-color: #000;
-            
-            /* Fundo com a miniatura do YouTube */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
         }
 
-        /* O iframe do vídeo deve preencher o contêiner, mas estará oculto */
-        #player {
+        /* O iframe do vídeo deve preencher o contêiner */
+        #player,
+        iframe {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            border: none;
+            /* Puxa o vídeo 60px para cima (esconde título/compartilhar) */
+            top: -60px;
+            /* Aumenta a altura para compensar (100% + 60px de cima + 60px de baixo) */
+            height: calc(100% + 120px);
+            /* Z-index 1: Fica no fundo */
+            z-index: 1;
+        }
+        
+        /* ===== NOVO: CAMADA DE BLOQUEIO DE PAUSE ===== */
+        #click-blocker {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
-            opacity: 0; /* Começa invisível */
-            transition: opacity 0.5s ease-in-out;
-            pointer-events: none; 
-        }
-
-        /* Quando o player estiver pronto, ele se torna visível */
-        .video-ready #player {
-            opacity: 1;
-            pointer-events: auto;
+            background-color: transparent;
+            /* Z-index 5: Fica acima do vídeo (1) */
+            z-index: 5; 
+            /* Começa escondida */
+            display: none; 
         }
 
         /* Estilo da capa (overlay) */
@@ -87,6 +87,7 @@
             align-items: center;
             flex-direction: column;
             cursor: pointer;
+            /* Z-index 10: Fica acima de tudo (1 e 5) */
             z-index: 10;
             transition: opacity 0.3s ease;
         }
@@ -97,17 +98,23 @@
             pointer-events: none;
         }
 
-        /* Caixa vermelha pulsante */
+        /* Mostra o bloqueador quando a classe 'visible' for adicionada */
+        #click-blocker.visible {
+            display: block;
+        }
+        
+        /* Estilo da CAIXA VERMELHA centralizada */
         .overlay-content {
-            background-color: rgba(204, 0, 0, 0.9);
-            padding: 20px 30px;
-            border-radius: 10px;
-            max-width: 300px;
-            width: 85%;
+            background-color: rgba(204, 0, 0, 0.9); /* Fundo vermelho */
+            padding: 15px 25px; /* Espaçamento interno */
+            border-radius: 10px; /* Cantos arredondados */
+            max-width: 300px; /* Largura máxima da caixa */
+            width: 85%; /* Responsivo em telas pequenas */
             text-align: center;
             color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
+            animation: pulse 3s infinite; /* Adiciona a animação de pulso */
         }
 
         .video-text-top {
@@ -122,50 +129,44 @@
             margin: 15px 0 0 0;
         }
 
+        /* Aplicando a animação ao contêiner do ícone */
         .play-icon-container {
-            border-radius: 50%;
-        }
-
-        .play-icon-container svg {
-            width: 70px;
-            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Animação Pulsante */
         @keyframes pulse {
             0% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+                filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
             }
             70% {
-                transform: scale(1.05);
-                box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0));
             }
             100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+                filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.7));
             }
         }
 
-        /* Regras Mobile */
+
+        /* ======================================= */
+        /* AQUI COMEÇAM AS REGRAS MOBILE */
+        /* ======================================= */
+
         @media (max-width: 600px) {
             .video-container {
-                aspect-ratio: 9 / 16; /* Vídeo vertical */
+                aspect-ratio: 9 / 16;
                 max-width: 100%;
+                margin: 0;
             }
-            .video-text-top {
-                font-size: 1.3rem;
-            }
-            .video-text-bottom {
-                font-size: 0.9rem;
-            }
-            .play-icon-container svg {
-                width: 50px;
-                height: 50px;
-            }
-            .overlay-content {
-                padding: 15px 20px;
-            }
+            .video-text-top { font-size: 1.3rem; }
+            .video-text-bottom { font-size: 0.9rem; }
+            .overlay-content { padding: 15px 20px; }
+            .play-icon-container svg { width: 50px; height: 50px; }
         }
   </style>
 
@@ -239,6 +240,8 @@ currency: 'BRL'
 <div class="video-container">
         <div id="player"></div>
 
+        <div id="click-blocker"></div>
+
         <div id="video-overlay">
             <div class="overlay-content">
                 <p class="video-text-top">Seu vídeo já começou</p>
@@ -252,9 +255,17 @@ currency: 'BRL'
         </div>
     </div>
 
-
     <script src="https://www.youtube.com/iframe_api"></script>
-    
+
+
+  <div class="w-full p-10 bg-gray-200">
+
+  <button class="
+    w-full                  bg-green-600            hover:bg-green-700      text-white              font-bold               text-lg                 py-4                    px-6                    rounded-lg              text-center             leading-tight           shadow-md               ">
+   Desconto aplicado! Garanta sua compra no Ameixa App
+  </button>
+
+</div>
     
     <!-- Mensagem abaixo do vídeo -->
 <div id="aviso-som" class="text-center mt-3 flex items-center justify-center gap-2 text-gray-700 text-sm animate-pulse">
@@ -264,34 +275,6 @@ currency: 'BRL'
   </svg>
   <span><strong>Verifique se o som está ligado</strong></span>
 </div>
-
-   <!-- DTC -->
-  <div id="elementoOculto" data-show-delay="2" style="display: none">
-
-    <div class="w-full p-10 bg-white">
-
-  <a
-    href="https://pay.herospark.com/ameixa-app-476965" class="
-      block                   w-full                  
-      bg-green-600            
-      hover:bg-green-700      
-      text-white              
-      font-bold               
-      text-lg                 
-      py-4                    
-      px-6                    
-      rounded-lg              
-      text-center             
-      leading-tight           
-      shadow-md               
-    "
-  >
-    Desconto Aplicado! Quero o Ameixa App agora
-  </a>
-
-</div>
-
-  </div>
 
 <!-- (Opcional) CSS adicional -->
 <style>
@@ -623,86 +606,65 @@ currency: 'BRL'
 </footer>
 
 <script>
-// Variável global para o player
+// 1. Variáveis globais
         var player;
-        
-        // ==========================================================
-        // !! IMPORTANTE !!
-        // Coloque o ID do seu vídeo aqui. 
-        // Eu deixei o último que você mandou (Yd_mya247M8)
-        // ==========================================================
-        var videoId = 'Yd_mya247M8';
-
-        // Função para obter a URL da miniatura (usando hqdefault que é mais confiável)
-        function getThumbnailUrl(id) {
-            return 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
-        }
-
-        // 1. Carrega a miniatura no fundo do container assim que a página carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            var container = document.querySelector('.video-container');
-            if (container) {
-                container.style.backgroundImage = 'url(' + getThumbnailUrl(videoId) + ')';
-            } else {
-                console.error("Erro: .video-container não encontrado.");
-            }
-        });
+        const overlay = document.getElementById('video-overlay');
+        const blocker = document.getElementById('click-blocker');
 
         // 2. Esta função é chamada automaticamente pela API do YouTube
         function onYouTubeIframeAPIReady() {
-            if (document.getElementById('player')) {
-                player = new YT.Player('player', {
-                    height: '100%',
-                    width: '100%',
-                    videoId: videoId, 
-                    playerVars: {
-                        'autoplay': 1,
-                        'mute': 1,
-                        'controls': 0,
-                        'showinfo': 0,
-                        'rel': 0,
-                        'modestbranding': 1,
-                        'playsinline': 1,
-                        'iv_load_policy': 3,
-                        'disablekb': 1,
-                        'fs': 0
-                    },
-                    events: {
-                        'onReady': onPlayerReady
-                    }
-                });
-            } else {
-                console.error("Erro: Elemento #player não encontrado para a API do YouTube.");
-            }
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: 'iMgPmw_s6n0', // ID do seu vídeo
+                playerVars: {
+                    'autoplay': 1,        // Autoplay
+                    'mute': 1,            // Começa mudo
+                    'controls': 0,        // Esconde os controles do YouTube
+                    'showinfo': 0,        // Esconde informações do vídeo
+                    'rel': 0,             // Não mostra vídeos relacionados no final
+                    'modestbranding': 1,  // Minimiza o logo do YouTube
+                    'playsinline': 1,     // Necessário para autoplay em iOS
+                    'loop': 1,            // Faz o vídeo repetir
+                    'playlist': 'iMgPmw_s6n0' // Necessário para 'loop' funcionar
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
         }
 
-        // 3. A API chama esta função quando o vídeo está pronto
+        // 3. A API chama esta função quando o vídeo está pronto (ou atualizado)
         function onPlayerReady(event) {
-            var container = document.querySelector('.video-container');
-            if (container) {
-                container.classList.add('video-ready');
-            }
+            // ===== AJUSTE PARA GARANTIR O ESTADO INICIAL (F5) =====
+            // Garante que a capa SEMPRE esteja visível
+            overlay.classList.remove('hidden');
+            // Garante que o bloqueador de clique esteja ESCONDIDO
+            blocker.classList.remove('visible'); 
+            // ======================================================
+
+            // Reinicia o vídeo
+            player.mute();
+            player.seekTo(0);
             event.target.playVideo();
         }
 
         // 4. Pega a capa e adiciona o clique
-        var overlay = document.getElementById('video-overlay');
-        if (overlay) {
-            overlay.addEventListener('click', function() {
-                if (player && typeof player.unMute === 'function') {
-                    player.unMute();
-                    player.playVideo();
-                    this.classList.add('hidden');
-                } else {
-                    console.error("Erro: O player do YouTube não está pronto ou não foi encontrado.");
-                }
-            });
-        } else {
-            console.error("Erro: #video-overlay não encontrado.");
-        }
+        overlay.addEventListener('click', function() {
+            // Tira o mudo e começa do início
+            player.unMute();
+            player.seekTo(0);
+            player.playVideo(); 
+            
+            // Esconde a capa
+            this.classList.add('hidden');
+            // MOSTRA o bloqueador de cliques
+            blocker.classList.add('visible');
+        });
 </script>
 
 </body>
 </html>
+
 
 
