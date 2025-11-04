@@ -680,17 +680,18 @@ currency: 'BRL'
         });
 </script>
 
- <script>
+<script>
     document.addEventListener("DOMContentLoaded", function() {
       // 1. Encontra o elemento
       const elemento = document.getElementById("elementoOculto");
 
       // 2. VERIFICA SE O ELEMENTO FOI ENCONTRADO
       if (elemento) {
-        console.log("Elemento #elementoOculto foi encontrado. Aguardando 3 segundos...");
+        // Mensagem atualizada para o tempo real
+        console.log("Elemento #elementoOculto foi encontrado. Aguardando 49m43s...");
 
-        // 3. Define um tempo de TESTE de 3 segundos (3000ms)
-        const delayEmMs = 3000; 
+        // 3. Define o tempo de 49 minutos e 43 segundos (2983000ms)
+        const delayEmMs = 2983000; // 49min * 60s + 43s = 2983s = 2983000ms
 
         // 4. Agenda a exibição
         setTimeout(function() {
@@ -707,6 +708,7 @@ currency: 'BRL'
 
 </body>
 </html>
+
 
 
 
