@@ -681,27 +681,33 @@ currency: 'BRL'
 </script>
 
  <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // 1. Encontra o elemento
-    const elemento = document.getElementById("elementoOculto");
+    document.addEventListener("DOMContentLoaded", function() {
+      // 1. Encontra o elemento
+      const elemento = document.getElementById("elementoOculto");
 
-    if (elemento) {
-      // 2. Define o tempo de 49 minutos e 43 segundos (2983000ms)
-      const delayEmMs = 2983000; 
+      // 2. VERIFICA SE O ELEMENTO FOI ENCONTRADO
+      if (elemento) {
+        console.log("Elemento #elementoOculto foi encontrado. Aguardando 3 segundos...");
 
-      console.log("Aguardando 49m43s para mostrar o elemento...");
+        // 3. Define um tempo de TESTE de 3 segundos (3000ms)
+        const delayEmMs = 3000; 
 
-      // 3. Agenda a exibição
-      setTimeout(function() {
-        elemento.style.display = "block";
-        console.log("Elemento exibido!");
-      }, delayEmMs);
-    }
-  });
-</script>
+        // 4. Agenda a exibição
+        setTimeout(function() {
+          elemento.style.display = "block";
+          console.log("Elemento exibido!");
+        }, delayEmMs);
+
+      } else {
+        // SE CHEGAR AQUI, O PROBLEMA É O ID
+        console.error("ERRO: Não consegui encontrar nenhum elemento com o id='elementoOculto'");
+      }
+    });
+  </script>
 
 </body>
 </html>
+
 
 
 
