@@ -260,7 +260,8 @@ currency: 'BRL'
 
 <br>
 
-  <div id="elementoOculto" style="display: none; background-color: white; color: white; padding: 20px; font-size: 24px; text-align: center; margin-top: 20px;">
+  <!-- DTC -->
+  <div id="elementoOculto" data-show-delay="2" style="display: none">
     
   <div class="w-full p-10 bg-white">
 
@@ -680,34 +681,11 @@ currency: 'BRL'
         });
 </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // 1. Encontra o elemento
-      const elemento = document.getElementById("elementoOculto");
 
-      // 2. VERIFICA SE O ELEMENTO FOI ENCONTRADO
-      if (elemento) {
-        // Mensagem atualizada para o tempo real
-        console.log("Elemento #elementoOculto foi encontrado. Aguardando 49m43s...");
-
-        // 3. Define o tempo de 49 minutos e 43 segundos (2983000ms)
-        const delayEmMs = 2983000; // 49min * 60s + 43s = 2983s = 2983000ms
-
-        // 4. Agenda a exibição
-        setTimeout(function() {
-          elemento.style.display = "block";
-          console.log("Elemento exibido!");
-        }, delayEmMs);
-
-      } else {
-        // SE CHEGAR AQUI, O PROBLEMA É O ID
-        console.error("ERRO: Não consegui encontrar nenhum elemento com o id='elementoOculto'");
-      }
-    });
-  </script>
 
 </body>
 </html>
+
 
 
 
