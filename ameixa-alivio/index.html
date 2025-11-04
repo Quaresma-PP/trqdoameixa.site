@@ -680,8 +680,32 @@ currency: 'BRL'
         });
 </script>
 
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 1. Encontra o elemento que deve aparecer
+    const elemento = document.getElementById("elementoOculto");
+
+    if (elemento) {
+      // 2. Pega o tempo de espera em minutos do atributo 'data-show-delay'
+      const delayEmMinutos = parseFloat(elemento.getAttribute("data-show-delay"));
+      
+      // 3. Converte os minutos para milissegundos (2 minutos * 60 seg * 1000 ms)
+      const delayEmMs = delayEmMinutos * 60 * 1000;
+
+      // 4. Agenda a função para mostrar o elemento depois do tempo calculado
+      setTimeout(function() {
+        elemento.style.display = "block"; // Muda o estilo de 'none' para 'block'
+      }, delayEmMs);
+    }
+  });
+</script>
+
 </body>
 </html>
+
+</body>
+</html>
+
 
 
 
