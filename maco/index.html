@@ -60,126 +60,134 @@
             </script>
         </div>
 
-    <div class="max-w-2xl mx-auto mt-12 p-6 bg-white rounded-lg shadow-xl text-left border border-gray-200">
-    <h3 class="text-gray-900 font-bold border-b border-gray-200 pb-2 mb-4">Comentários</h3>
+     <!--   <div id="secao-pitch" class="hidden">
+    <section class="max-w-4xl mx-auto mt-16 px-4 pb-20">
+        </section>-->
 
-    <div class="space-y-6">
-        <div class="flex space-x-3">
-            <img src="images/f1.jpg" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-300" alt="Gustavo Martins">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">Gustavo Martins</p>
-                    <p class="text-gray-800 text-sm">Sempre ouvi falar da influência da Ordem, mas só depois de entrar percebi como as portas se abrem rápido. Minha empresa dobrou o faturamento em 3 meses com as conexões que fiz.</p>
+        <section class="max-w-4xl mx-auto mt-16 px-4 pb-20">
+    <div class="vsl-border bg-black p-8 rounded-lg shadow-2xl">
+        
+        <div id="etapa1" class="text-center space-y-6">
+            <h2 class="text-[#BF953F] font-bold uppercase tracking-widest text-sm">1ª Etapa</h2>
+            <p class="text-white text-xl md:text-2xl font-bold">Adicione seu CEP para encontrar o templo maçom mais próximo de Você:</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <input type="text" id="cepInput" placeholder="00000-000" class="w-full md:w-64 p-4 bg-gray-900 border border-[#BF953F] text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FCF6BA] text-center text-lg">
+                <button onclick="buscarTemplo()" class="w-full md:w-auto bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#AA771C] text-black font-black py-4 px-8 rounded-lg uppercase hover:scale-105 transition-transform duration-300 shadow-lg">
+                    Buscar o templo mais próximo
+                </button>
+            </div>
+        </div>
+
+        <div id="etapa2" class="hidden text-center space-y-8">
+            <h2 class="text-[#BF953F] font-bold uppercase tracking-widest text-sm">2ª Etapa</h2>
+            <p class="text-white text-xl md:text-2xl font-bold">Escolha o templo que você deseja ser membro:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border-2 border-gray-700 hover:border-[#BF953F] p-6 rounded-xl bg-gray-900 transition-colors group">
+                    <h3 class="text-white font-bold text-lg mb-4">Templo Grande Oriente - Unidade Sul</h3>
+                    <div class="flex justify-around text-gray-300 mb-6">
+                        <div class="flex flex-col items-center">
+                            <span class="text-2xl">🚗</span>
+                            <span class="text-xs mt-1">10 min de carro</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-2xl">🚶</span>
+                            <span class="text-xs mt-1">15 min a pé</span>
+                        </div>
+                    </div>
+                    <button onclick="irParaCheckout()" class="w-full bg-[#BF953F] group-hover:bg-[#FCF6BA] text-black font-bold py-3 rounded-md uppercase text-sm transition-colors">
+                        quero ser membro desse templo
+                    </button>
                 </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 2.134</span>
-                    <span>1h</span>
+
+                <div class="border-2 border-gray-700 hover:border-[#BF953F] p-6 rounded-xl bg-gray-900 transition-colors group">
+                    <h3 class="text-white font-bold text-lg mb-4">Loja Maçônica Real Estrela</h3>
+                    <div class="flex justify-around text-gray-300 mb-6">
+                        <div class="flex flex-col items-center">
+                            <span class="text-2xl">🚗</span>
+                            <span class="text-xs mt-1">20 min de carro</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-2xl">🚶</span>
+                            <span class="text-xs mt-1">27 min a pé</span>
+                        </div>
+                    </div>
+                    <button onclick="irParaCheckout()" class="w-full bg-[#BF953F] group-hover:bg-[#FCF6BA] text-black font-bold py-3 rounded-md uppercase text-sm transition-colors">
+                        quero ser membro desse templo
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div class="flex space-x-3">
-            <img src="images/f2.jpg" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-300" alt="Arnaldo Quintana">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">Arnaldo Quintana</p>
-                    <p class="text-gray-800 text-sm">Depois de conhecer os princípios reais da influência, descobri que estava liderando meus negócios de forma errada. Em menos de um mês, mudei meu posicionamento e os resultados são incríveis.</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 2.001</span>
-                    <span>1h</span>
-                </div>
-            </div>
+    </div>
+</section>
+        
+<script>
+    function buscarTemplo() {
+        const cep = document.getElementById('cepInput').value;
+        if(cep.length >= 8) {
+            // Esconde etapa 1 e mostra etapa 2
+            document.getElementById('etapa1').classList.add('hidden');
+            document.getElementById('etapa2').classList.remove('hidden');
+            // Rola suavemente para o início da seção
+            window.scrollTo({ top: document.getElementById('etapa2').offsetTop - 100, behavior: 'smooth' });
+        } else {
+            alert('Por favor, insira um CEP válido.');
+        }
+    }
+
+    function irParaCheckout() {
+        // Substitua pelo seu link real do Perfect Pay ou Memberkit
+        window.location.href = "https://checkout.ticto.app/OD3633A02"; 
+    }
+</script>
+        </div>
+    <section class="max-w-6xl mx-auto mt-16 px-4">
+    <h2 class="text-3xl md:text-5xl gold-gradient text-center uppercase mb-12 font-black tracking-tighter">
+        Porque ser Maçom
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="vsl-border bg-black p-8 flex flex-col items-start space-y-4">
+            <span class="text-6xl md:text-8xl font-bold text-[#BF953F] leading-none">1</span>
+            <h3 class="text-[#BF953F] font-bold uppercase tracking-widest text-xl">Rede de Contatos</h3>
+            <p class="text-gray-300 text-sm leading-relaxed text-left">
+                É um dos principais motivos do seu surgimento, a <strong class="text-white">Maçonaria</strong> representa um corte transversal das profissões de uma comunidade pois está presente em todos os ramos profissionais. Os <strong class="text-white">Maçons</strong> ajudam-se mutuamente como regra de conduta.
+            </p>
         </div>
 
-        <div class="flex space-x-3">
-            <img src="images/f3.jpg" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-300" alt="José Alexandre">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">José Alexandre</p>
-                    <p class="text-gray-800 text-sm">Gostei das aulas, o mestre vai direto ao ponto e mostra na prática como funciona a hierarquia e o poder entre os grandes líderes do país.</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 1.654</span>
-                    <span>1h</span>
-                </div>
-            </div>
+        <div class="vsl-border bg-black p-8 flex flex-col items-start space-y-4">
+            <span class="text-6xl md:text-8xl font-bold text-[#BF953F] leading-none">2</span>
+            <h3 class="text-[#BF953F] font-bold uppercase tracking-widest text-xl">Crescimento</h3>
+            <p class="text-gray-300 text-sm leading-relaxed text-left">
+                O envolvimento com a <strong class="text-white">Maçonaria</strong> favorece o crescimento pois congrega líderes e pessoas de sucesso. Atuar em cargos <strong class="text-white">Maçônicos</strong> é sinônimo de maior experiência e liderança, a pessoa aprende a influenciar, motivar e liderar aqueles que já são líderes.
+            </p>
         </div>
 
-        <div class="flex space-x-3">
-            <img src="images/f4.png" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-300" alt="Ismael Batista">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">Ismael Batista</p>
-                    <p class="text-gray-800 text-sm">Eu estava meio receoso, mas apliquei os pontos da aula 3 na conversa com o investidor hoje. Acabei de receber o 'sim' oficial. Feliz demais com esse novo passo!</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 1.361</span>
-                    <span>2d</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex space-x-3">
-            <img src="images/f5.jpg" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-300" alt="Pedro Romualdo">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">Pedro Romualdo</p>
-                    <p class="text-gray-800 text-sm">Tenho 63 anos e achei que não teria mais espaço, mas a fraternidade me mostrou que o conhecimento e a influência não têm idade. Minha vida financeira renovou totalmente.</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 412</span>
-                    <span>2d</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex space-x-3">
-            <img src="images/f6.jpg" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-300" alt="Vagner Franciolo">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">Vagner Franciolo</p>
-                    <p class="text-gray-800 text-sm">As aulas são tão impactantes que você sente a mudança de mentalidade a cada segundo. É um despertar para a abundância que eu nunca vi igual.</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 312</span>
-                    <span>2d</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex space-x-3">
-            <img src="images/f7.webp" class="w-10 h-10 aspect-square object-cover rounded-full border border-gray-200" alt="Pedro Marcelino">
-            <div>
-                <div class="bg-gray-100 p-3 rounded-2xl">
-                    <p class="text-blue-600 font-bold text-sm">Pedro Marcelino</p>
-                    <p class="text-gray-800 text-sm">Eu me sentia estagnado e culpado por não prover o melhor para minha família, mas ontem fechei minha primeira grande parceria através do grupo. Estou muito feliz.</p>
-                </div>
-                <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500 ml-2">
-                    <button class="hover:underline font-bold">Curtir</button>
-                    <button class="hover:underline font-bold">Responder</button>
-                    <span class="flex items-center"><img src="imagens/fblike.webp" class="w-4 h-4 mr-1"> 267</span>
-                    <span>2d</span>
-                </div>
-            </div>
+        <div class="vsl-border bg-black p-8 flex flex-col items-start space-y-4">
+            <span class="text-6xl md:text-8xl font-bold text-[#BF953F] leading-none">3</span>
+            <h3 class="text-[#BF953F] font-bold uppercase tracking-widest text-xl">Prestígio</h3>
+            <p class="text-gray-300 text-sm leading-relaxed text-left">
+                Espera-se que todo <strong class="text-white">Maçom</strong> se envolva com a melhoria de sua profissão, sirva-se em comissões de serviços profissionais e participe da divulgação da sua profissão entre os jovens. Os <strong class="text-white">Maçons</strong> procuram conseguir que todos sirvam sempre da melhor maneira.
+            </p>
         </div>
     </div>
-</div>
+</section>
     </div>
 
-    
+  <script>
+    // Defina o tempo em segundos para a seção aparecer
+    // Exemplo: 900 segundos = 15 minutos
+    const SEGUNDOS_PARA_APARECER = 900; 
+
+    setTimeout(() => {
+        const elemento = document.getElementById('secao-pitch');
+        if (elemento) {
+            elemento.classList.remove('hidden');
+        }
+    }, SEGUNDOS_PARA_APARECER * 1000);
+</script>
 
 </body>
 </html>
